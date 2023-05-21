@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  project-satu:
+    container_name: project-satu
+    tty: true
+    restart: unless-stopped
+    build:
+      context: ./project-satu
+    ports:
+        - '8000:80'
+    volumes:
+      - ./server/default.conf:/etc/apache2/sites-enabled/000-default.conf
+    networks: 
+      ayam_network:
+        ipv4_address: 172.40.0.10
+   
+
+  project-dua:
+    container_name: project-dua
+    tty: true
+    restart: unless-stopped
+    build:
+      context: ./project-dua
+    ports:
+        - '8001:80'
+    volumes:
+      - ./server/default.conf:/etc/apache2/sites-enabled/000-default.conf
+    networks: 
+      ayam_network:
+        ipv4_address: 172.40.0.20
+
+
+networks:
+  ayam_network:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.40.0.0/16
+
+
+    
+  
+  
+  
+  
